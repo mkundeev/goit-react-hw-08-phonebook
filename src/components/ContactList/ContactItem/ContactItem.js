@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { AiOutlineClose } from 'react-icons/ai';
-import s from './ContactItem.module.css'
+import ClipLoader from 'react-spinners/ClipLoader';
+import s from './ContactItem.module.css';
+import { useDeleteContactMutation } from 'redux/contactsAPI';
 
-
-export default function ContactItem({ name, number, deletContact, id }) {
+export default function ContactItem({ name, number, id }) {
+  const [deletContact, { isLoading }] = useDeleteContactMutation();
   return (
     <>
       <div className={s.wrap}>
@@ -15,14 +17,17 @@ export default function ContactItem({ name, number, deletContact, id }) {
         type="button"
         className={s.button}
       >
-        <AiOutlineClose />
+        {isLoading ? (
+          <ClipLoader size="16px" color="white" />
+        ) : (
+          <AiOutlineClose />
+        )}
       </button>
     </>
   );
 }
 ContactItem.propTypes = {
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    deletContact:PropTypes.func.isRequired,
-}    
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};

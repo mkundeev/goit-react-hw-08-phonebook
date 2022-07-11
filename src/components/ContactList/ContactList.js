@@ -3,19 +3,18 @@ import ContactItem from './ContactItem';
 import Notification from '../Notification';
 import s from './ContactList.module.css';
 
-export default function ContactList({ contacts, deletContact }) {
+export default function ContactList({ contacts }) {
   return (
     <ul className={s.list}>
-      {contacts.map(({ name, phone, id }) => (
-        <li key={id} className={s.item}>
-          <ContactItem
-            name={name}
-            number={phone}
-            deletContact={deletContact}
-            id={id}
-          />
-        </li>
-      ))}
+      {[...contacts]
+        .sort(({ name: nameA }, { name: nameB }) =>
+          nameA.toLowerCase().localeCompare(nameB.toLowerCase())
+        )
+        .map(({ name, phone, id }) => (
+          <li key={id} className={s.item}>
+            <ContactItem name={name} number={phone} id={id} />
+          </li>
+        ))}
       {contacts.length === 0 && <Notification message={'No contacts found'} />}
     </ul>
   );
@@ -23,5 +22,4 @@ export default function ContactList({ contacts, deletContact }) {
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  deletContact: PropTypes.func.isRequired,
 };
