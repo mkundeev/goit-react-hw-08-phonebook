@@ -4,6 +4,7 @@ import ContactList from './ContactList';
 import Filter from './Filter';
 import Header from './Header';
 import Container from './Container';
+import RegistrationForm from './RegistrationForm';
 import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsAPI';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
       <Container>
         <h2>Phonebook</h2>
         <ContactForm onSubmit={formSubmit} />
+        <RegistrationForm onSubmit={formSubmit} registration />
       </Container>
       <Container>
         <h2>Contacts</h2>
