@@ -1,4 +1,4 @@
-// import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import s from './Header.module.css';
 
@@ -12,19 +12,25 @@ export default function Header() {
         {true ? (
           <ul className={s.hederList}>
             <li className={s.hederListItem}>
-              <span>Log In</span>
+              <NavLink to="/authorization" className={s.link}>
+                Log In
+              </NavLink>
             </li>
             <li className={s.hederListItem}>
-              <span>Registration</span>
+              <NavLink to="/registration" className={s.link}>
+                Registration
+              </NavLink>
             </li>
           </ul>
         ) : (
           <ul className={s.hederList}>
             <li className={s.hederListItem}>
-              <span>User</span>
+              <NavLink to="/profile" className={s.link}>
+                User
+              </NavLink>
             </li>
             <li className={s.hederListItem}>
-              <span>Log out</span>
+              <span className={s.link}>Log out</span>
             </li>
           </ul>
         )}
