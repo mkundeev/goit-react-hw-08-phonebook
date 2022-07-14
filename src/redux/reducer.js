@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { contactsApi, useAuthorizeUserMutation } from './contactsAPI';
 
 const initialState = {
   user: { name: '', email: '' },
@@ -18,11 +17,6 @@ const userSlice = createSlice({
       return { ...state, ...initialState };
     },
   },
-  //   extraReducers: {
-  //     [contactsApi.endpoints.authorizeUser.matchFulfilled]: (state, action) => {
-  //       return { ...state, ...action.payload, isLoggedIn: true };
-  //     },
-  //   },
 });
 
 export const { setUser, resetUser } = userSlice.actions;

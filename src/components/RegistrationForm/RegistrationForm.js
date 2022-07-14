@@ -8,13 +8,12 @@ import { useNavigate } from 'react-router-dom';
 import { setUser } from 'redux/reducer';
 import * as Yup from 'yup';
 import s from './RegistrationForm.module.css';
-import { contactsApi } from 'redux/contactsAPI';
 
 export default function RegistrationForm({ registration }) {
   const dispatch = useDispatch();
 
   const [registerUser] = useRegisterUserMutation();
-  const [authorizeUser, data] = useAuthorizeUserMutation();
+  const [authorizeUser] = useAuthorizeUserMutation();
 
   const navigate = useNavigate();
 
