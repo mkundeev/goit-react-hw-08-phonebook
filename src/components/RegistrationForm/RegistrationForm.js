@@ -43,11 +43,17 @@ export default function RegistrationForm({ registration }) {
       onSubmit={(values, { setSubmitting, resetForm }) => {
         registration
           ? registerUser(values)
-              .then(({ data }) => dispatch(setUser(data)))
+              .unwrap()
+              .then(payload => dispatch(setUser(payload)))
               .then(() => navigate('/contacts', { replace: true }))
+              .catch(error => console.log(error))
           : authorizeUser(values)
-              .then(({ data }) => dispatch(setUser(data)))
-              .then(() => navigate('/contacts', { replace: true }));
+              .unwrap()
+              .then(payload => {
+                dispatch(setUser(payload));
+                navigate('/contacts', { replace: true });
+              })
+              .catch(error => console.log(error));
         setSubmitting(false);
         resetForm({});
       }}
