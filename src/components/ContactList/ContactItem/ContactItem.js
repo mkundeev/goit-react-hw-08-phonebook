@@ -6,6 +6,7 @@ import { useDeleteContactMutation } from 'redux/contactsAPI';
 
 export default function ContactItem({ name, number, id }) {
   const [deletContact, { isLoading }] = useDeleteContactMutation();
+
   return (
     <>
       <div className={s.wrap}>

@@ -10,9 +10,9 @@ export default function ContactList({ contacts }) {
         .sort(({ name: nameA }, { name: nameB }) =>
           nameA.toLowerCase().localeCompare(nameB.toLowerCase())
         )
-        .map(({ name, phone, id }) => (
+        .map(({ name, number, id }) => (
           <li key={id} className={s.item}>
-            <ContactItem name={name} number={phone} id={id} />
+            <ContactItem name={name} number={number} id={id} />
           </li>
         ))}
       {contacts.length === 0 && <Notification message={'No contacts found'} />}

@@ -7,6 +7,7 @@ import Filter from 'components/Filter';
 
 export default function ContactsPage() {
   const [filter, setFilter] = useState('');
+
   const { data } = useGetContactsQuery();
   const [addContact] = useAddContactMutation();
 

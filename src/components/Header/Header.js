@@ -1,23 +1,32 @@
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetUser } from 'redux/reducer';
+import { useLogOutUserMutation } from 'redux/contactsAPI';
 import s from './Header.module.css';
 
 export default function Header() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logOutUser] = useLogOutUserMutation();
+  const isLogin = useSelector(state => state.currentUser.isLoggedIn);
+  const token = useSelector(state => state.currentUser.token);
+  const activeLink = ({ isActive }) => (isActive ? s.linkActive : s.link);
+
   return (
     <header className={s.header}>
       <p className={s.logo}>
         <span className={s.logoSpan}>Phone</span>book
       </p>
       <div className={s.hederLinkWrap}>
-        {true ? (
+        {!isLogin ? (
           <ul className={s.hederList}>
             <li className={s.hederListItem}>
-              <NavLink to="/authorization" className={s.link}>
+              <NavLink to="/authorization" className={activeLink}>
                 Log In
               </NavLink>
             </li>
             <li className={s.hederListItem}>
-              <NavLink to="/registration" className={s.link}>
+              <NavLink to="/registration" className={activeLink}>
                 Registration
               </NavLink>
             </li>
@@ -25,12 +34,22 @@ export default function Header() {
         ) : (
           <ul className={s.hederList}>
             <li className={s.hederListItem}>
-              <NavLink to="/profile" className={s.link}>
+              <NavLink to="/profile" className={activeLink}>
                 User
               </NavLink>
             </li>
             <li className={s.hederListItem}>
-              <span className={s.link}>Log out</span>
+              <button
+                type="button"
+                className={s.button}
+                onClick={() =>
+                  logOutUser(token)
+                    .then(() => dispatch(resetUser()))
+                    .then(() => navigate('/registration', { replace: true }))
+                }
+              >
+                Log out
+              </button>
             </li>
           </ul>
         )}

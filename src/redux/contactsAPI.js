@@ -3,12 +3,25 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const contactsApi = createApi({
   reducerPath: 'contacts',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://62c98fb9d9ead251e8bd78e1.mockapi.io/',
+    baseUrl: 'https://connections-api.herokuapp.com/',
+    prepareHeaders: (headers, { getState }) => {
+      console.log(getState());
+      const token = getState().currentUser.token;
+      console.log(token);
+      if (token) {
+        console.log(token);
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
-  tagTypes: ['Contacts'],
+
+  tagTypes: ['Contacts', 'Users'],
   endpoints: builder => ({
     getContacts: builder.query({
-      query: () => `contacts`,
+      query: () => ({
+        url: `contacts`,
+      }),
       providesTags: ['Contacts'],
     }),
     deleteContact: builder.mutation({
@@ -21,14 +34,51 @@ export const contactsApi = createApi({
       invalidatesTags: ['Contacts'],
     }),
     addContact: builder.mutation({
-      query(contact) {
+      query: contact => ({
+        url: `contacts`,
+        method: 'POST',
+        body: contact,
+      }),
+      invalidatesTags: ['Contacts'],
+    }),
+    patchContact: builder.mutation({
+      query({ contact, contactId }) {
         return {
-          url: `contacts`,
-          method: 'POST',
+          url: `contacts/${contactId}`,
+          method: 'PATCH',
           body: contact,
         };
       },
       invalidatesTags: ['Contacts'],
+    }),
+    registerUser: builder.mutation({
+      query(user) {
+        return {
+          url: `users/signup`,
+          method: 'POST',
+          body: user,
+        };
+      },
+      invalidatesTags: ['Users'],
+    }),
+    authorizeUser: builder.mutation({
+      query(user) {
+        return {
+          url: `users/login`,
+          method: 'POST',
+          body: user,
+        };
+      },
+      invalidatesTags: ['Users'],
+    }),
+    logOutUser: builder.mutation({
+      query() {
+        return {
+          url: `users/logout`,
+          method: 'POST',
+        };
+      },
+      invalidatesTags: ['Users'],
     }),
   }),
 });
@@ -37,4 +87,8 @@ export const {
   useGetContactsQuery,
   useDeleteContactMutation,
   useAddContactMutation,
+  usePatchContactMutation,
+  useAuthorizeUserMutation,
+  useRegisterUserMutation,
+  useLogOutUserMutation,
 } = contactsApi;
