@@ -11,10 +11,8 @@ import s from './RegistrationForm.module.css';
 
 export default function RegistrationForm({ registration }) {
   const dispatch = useDispatch();
-
   const [registerUser] = useRegisterUserMutation();
   const [authorizeUser] = useAuthorizeUserMutation();
-
   const navigate = useNavigate();
 
   return (

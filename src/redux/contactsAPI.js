@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import { REHYDRATE } from 'redux-persist';
 
 export const contactsApi = createApi({
   reducerPath: 'contacts',
@@ -12,7 +13,6 @@ export const contactsApi = createApi({
       return headers;
     },
   }),
-
   tagTypes: ['Contacts', 'Users'],
   endpoints: builder => ({
     getContacts: builder.query({
@@ -89,3 +89,4 @@ export const {
   useRegisterUserMutation,
   useLogOutUserMutation,
 } = contactsApi;
+
