@@ -1,16 +1,14 @@
 import { useState, useMemo } from 'react';
 import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsAPI';
+import { toast } from 'react-toastify';
 import Container from 'components/Container';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import Notification from 'components/Notification';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function ContactsPage() {
   const [filter, setFilter] = useState('');
-
   const { data } = useGetContactsQuery();
   const [addContact] = useAddContactMutation();
   const formSubmit = contact => {
@@ -51,7 +49,6 @@ export default function ContactsPage() {
           <Notification message={'No contacts found'} />
         )}
       </Container>
-      <ToastContainer theme="colored" autoClose={3000} />
     </div>
   );
 }

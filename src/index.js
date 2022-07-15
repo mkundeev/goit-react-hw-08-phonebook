@@ -7,6 +7,7 @@ import { App } from 'components/App';
 import { store, persistor } from 'redux/store';
 import './index.css';
 import 'modern-normalize/modern-normalize.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

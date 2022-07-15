@@ -10,8 +10,8 @@ const userSlice = createSlice({
   name: 'currentUser',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      return { ...state, ...action.payload, isLoggedIn: true };
+    setUser: (state, { payload }) => {
+      return { ...state, ...payload, isLoggedIn: true };
     },
     resetUser(state) {
       return { ...state, ...initialState };

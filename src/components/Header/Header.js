@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from 'redux/selectors';
 import UserMenu from 'components/UserMenu';
 import s from './Header.module.css';
 
 export default function Header() {
-  const isLogin = useSelector(state => state.currentUser.isLoggedIn);
+  const isLogin = useSelector(getIsLoggedIn);
   const activeLink = ({ isActive }) => (isActive ? s.linkActive : s.link);
 
   return (

@@ -4,8 +4,9 @@ import {
   useAuthorizeUserMutation,
 } from 'redux/contactsAPI';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { setUser } from 'redux/reducer';
+import { toast, ToastContainer } from 'react-toastify';
 import * as Yup from 'yup';
 import s from './RegistrationForm.module.css';
 
@@ -42,16 +43,31 @@ export default function RegistrationForm({ registration }) {
         registration
           ? registerUser(values)
               .unwrap()
-              .then(payload => dispatch(setUser(payload)))
-              .then(() => navigate('/contacts', { replace: true }))
-              .catch(error => console.log(error))
+              .then(payload => {
+                dispatch(setUser(payload));
+                navigate('/contacts', { replace: true });
+              })
+              .catch(() =>
+                toast.error(
+                  `User with such email already exist. Do you want to Log in?`,
+                  {
+                    position: toast.POSITION.TOP_RIGHT,
+                    onClick: () =>
+                      navigate('/authorization', { replace: true }),
+                  }
+                )
+              )
           : authorizeUser(values)
               .unwrap()
               .then(payload => {
                 dispatch(setUser(payload));
                 navigate('/contacts', { replace: true });
               })
-              .catch(error => console.log(error));
+              .catch(() =>
+                toast.error(`Please put correct data`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                })
+              );
         setSubmitting(false);
         resetForm({});
       }}

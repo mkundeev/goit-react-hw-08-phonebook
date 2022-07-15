@@ -77,6 +77,14 @@ export const contactsApi = createApi({
       },
       invalidatesTags: ['Users'],
     }),
+    getUser: builder.query({
+      query() {
+        return {
+          url: `users/current`,
+        };
+      },
+      invalidatesTags: ['Users'],
+    }),
   }),
 });
 
@@ -88,5 +96,5 @@ export const {
   useAuthorizeUserMutation,
   useRegisterUserMutation,
   useLogOutUserMutation,
+  useGetUserQuery,
 } = contactsApi;
-
