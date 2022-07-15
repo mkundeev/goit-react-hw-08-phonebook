@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import {
   useRegisterUserMutation,
   useAuthorizeUserMutation,
 } from 'redux/contactsAPI';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setUser } from 'redux/reducer';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import s from './RegistrationForm.module.css';
 
@@ -110,3 +111,6 @@ export default function RegistrationForm({ registration }) {
     </Formik>
   );
 }
+RegistrationForm.propTypes = {
+  registration: PropTypes.bool,
+};
