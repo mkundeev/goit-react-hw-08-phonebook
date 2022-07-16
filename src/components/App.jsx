@@ -23,7 +23,6 @@ const ContactsPage = lazy(() =>
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(getToken);
-  console.log(!token);
   const { data } = useGetUserQuery('', { skip: !token });
   useEffect(() => {
     if (data) {

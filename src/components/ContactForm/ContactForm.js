@@ -73,7 +73,7 @@ export default function ContactForm({
 }
 ContactForm.propTypes = {
   name: PropTypes.string,
-  number: PropTypes.string.isRequired,
+  number: PropTypes.string,
   changeData: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
 };
